@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    char data;
+    struct Node* next;
+};
+
+int main() {
+    int n, i, flag = 1;
+    char value;
+    struct Node *head = NULL, *temp, *newNode;
+    struct Node *stack[100]; 
+    int top = -1;
+
+    printf("Enter number of nodes: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        printf("Enter data for node %d: ", i + 1);
+        scanf(" %c", &value);
+
+        newNode = (struct Node*)malloc(sizeof(struct Node));
+        newNode->data = value;
+        newNode->next = NULL;
+
+        if (head == NULL)
+            head = newNode;
+        else {
+            temp = head;
+            while (temp->next != NULL)
+                temp = temp->next;
+            temp->next = newNode;
+        }
+    }
+
+    temp = head;
+    while (temp != NULL) {
+        stack[++top] = temp;
+        temp = temp->next;
+    }
+
+    temp = head;
+    while (temp != NULL) {
+        if (temp->data != stack[top--]->data) {
+            flag = 0;
+            break;
+        }
+        temp = temp->next;
+    }
+
+    if (flag)
+        printf("The linked list is a palindrome\n");
+    else
+        printf("The linked list is not a palindrome\n");
+
+    return 0;
+}
