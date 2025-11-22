@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main() {
+    int l, m, n, i, j, k;
+
+    printf("Enter dimensions (layers rows columns): ");
+    scanf("%d %d %d", &l, &m, &n);
+
+    int A[l][m][n], B[l][m][n], sum[l][m][n], add[l][m][n], mul[l][m][n];
+
+    printf("Enter elements of first matrix:\n");
+    for (i = 0; i < l; i++)
+        for (j = 0; j < m; j++)
+            for (k = 0; k < n; k++)
+                scanf("%d", &A[i][j][k]);
+
+    printf("Enter elements of second matrix:\n");
+    for (i = 0; i < l; i++)
+        for (j = 0; j < m; j++)
+            for (k = 0; k < n; k++)
+                scanf("%d", &B[i][j][k]);
+
+    for
