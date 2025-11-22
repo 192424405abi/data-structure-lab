@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100
+
+typedef struct Stack {
+    int data[MAX];
+    int top;
+} Stack;
+
+void initStack(Stack* s) {
+    s->top = -1;
+}
+
+int isEmpty(Stack* s) {
+    return s->top == -1;
+}
+
+int isFull(Stack* s) {
+    return s->top == MAX - 1;
+}
+
+void push(Stack* s, int value) {
+    if (!isFull(s))
+        s->data[++s->top] = value;
+}
+
+int pop(Stack* s) {
+    if (!isEmpty(s))
+        return s->data[s->top--];
+    return -1;
+}
+
+int sumTopBottom(Stack* s) {
+    if (isEmpty(s))
+        return 0;
+    return s->data[s->top] + s->data[0]; // top + bottom
+}
+
+int main() {
+    Stack s1, s2;
+    initStack(&s1);
+    initStack(&s2);
+
+    int n1, n2, i, value;
+
+    printf("Enter number of elements for Stack 1: ");
+    scanf("%d", &n1);
+    printf("Enter elements for Stack 1:\n");
+    for (i = 0; i < n1; i++) {
+        scanf("%d", &value);
+        push(&s1, value);
+    }
+
+    printf("Enter number of elements for Stack 2: ");
+    scanf("%d", &n2);
+    printf("Enter elements for Stack 2:\n");
+    for (i = 0; i < n2; i++) {
+        scanf("%d", &value);
+        push(&s2, value);
+    }
+
+    printf("Sum of top and bottom elements of Stack 1: %d\n", sumTopBottom(&s1));
+    printf("Sum of top and bottom elements of Stack 2: %d\n", sumTopBottom(&s2));
+
+    return 0;
+}
