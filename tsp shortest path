@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <limits.h>
+
+#define V 4  // Number of cities
+
+int tsp(int city, int visited, int dist[V][V], int n, int start) {
+    if (visited == (1 << n) - 1)
+        return dist[city][start]; // Return to starting city
+
+    int ans = INT_MAX;
+
+    for (int next = 0; next < n; next++) {
+        if (!(visited & (1 << next))) {
+            int temp = dist[city][next] + tsp(next, visited | (1 << next), dist, n, start);
+            if (temp < ans)
+                ans = temp;
+        }
+    }
+    return ans;
+}
+
+int main() {
+    int dist[V][V] = {
+        {0, 10, 15, 20},
+        {10, 0, 35, 25},
+        {15, 35, 0, 30},
+        {20, 25, 30, 0}
+    };
+
+    int start;
+    printf("Enter starting city (0 to %d): ", V-1);
+    scanf("%d", &start);
+
+    int minCost = tsp(start, 1 << start, dist, V, start);
+
+    printf("Minimum cost of TSP tour starting from city %d: %d\n", start, minCost);
+
+    return 0;
+}
