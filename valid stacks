@@ -20,4 +20,52 @@ int isFull(Stack* s) {
     return s->top == MAX - 1;
 }
 
-void pu
+void push(Stack* s, int value) {
+    if (!isFull(s))
+        s->data[++s->top] = value;
+}
+
+int pop(Stack* s) {
+    if (!isEmpty(s))
+        return s->data[s->top--];
+    return -1; 
+}
+
+int main() {
+    Stack s;
+    initStack(&s);
+
+    char ops[100];
+    int n, i, value;
+
+    printf("Enter number of operations: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        char op;
+        printf("Enter operation (push 'p' or pop 'o'): ");
+        scanf(" %c", &op);
+
+        if (op == 'p') {
+            printf("Enter value to push: ");
+            scanf("%d", &value);
+            push(&s, value);
+        } else if (op == 'o') {
+            if (isEmpty(&s)) {
+                printf("Invalid operation: Stack underflow\n");
+            } else {
+                int popped = pop(&s);
+                printf("Popped value: %d\n", popped);
+            }
+        } else {
+            printf("Invalid operation\n");
+        }
+    }
+
+    printf("Final stack content: ");
+    for (i = 0; i <= s.top; i++)
+        printf("%d ", s.data[i]);
+    printf("\n");
+
+    return 0;
+}
