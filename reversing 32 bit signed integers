@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <limits.h>
+
+int reverse(int x) {
+    long r = 0;
+    while (x != 0) {
+        int d = x % 10;
+        r = r * 10 + d;
+        if (r > INT_MAX || r < INT_MIN)
+            return 0;
+        x /= 10;
+    }
+    return (int)r;
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    printf("%d\n", reverse(n));
+    return 0;
+}
